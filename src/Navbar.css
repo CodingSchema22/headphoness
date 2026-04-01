@@ -1,0 +1,90 @@
+*{
+    margin: 0;
+    color: antiquewhite;
+    padding: 0;
+    background-color: black;
+
+}
+.nav-box{
+    display: flex;
+    justify-content: space-evenly;
+padding: 20px;
+gap: 80px;
+}
+.nav{
+    font-size: 18px;
+    cursor: pointer;
+}
+.navbar{
+    display: flex;
+    justify-content: space-between;
+}
+.logo{
+padding: 20px;
+border: 2px solid rgb(44, 43, 43);
+font-size: 18px;
+}
+/* -----------banner------------------ */
+.banner{
+     display: flex;
+    justify-content: space-between; 
+    background-color: black;
+    margin-top: 30px;
+}
+.image-section{
+    padding-right: 60px;
+}
+.text-area{
+    padding-left:100px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 40px;
+    height: 100%;
+    width: 40%;
+    /* border: 2px solid black; */
+}
+.text-area p{
+font-size: 20px;
+    line-height: 35px;
+}
+.text-area h1{
+font-size: 50px;
+line-height: 65px;
+}
+.image-section{
+    width: 31%;
+    height: 80vh;
+    /* margin-top: 50px; */
+}
+.shoe-case{
+         display: flex;
+gap: 30px;
+}
+.box{
+    width: 90px;
+    height: 110px;
+    cursor: pointer;
+}
+.box img{
+    width: 100%;
+    height: 100%;
+object-fit: cover;
+}
+.image-section img{
+    width: 100%;
+    height: 100%;
+object-fit: cover;
+}
+.btn{
+    border: none;
+    border-radius: 30px;
+    padding: 20px;
+    height: 50px;
+width: 120px;
+}
+.btn:hover{
+    background-color: aliceblue;
+    color: black;
+    cursor: pointer;
+}
