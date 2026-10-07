@@ -1,120 +1,187 @@
-import React, { useState } from "react";
-// import Navbar from "./components/Navbar";
-import Products from "./components/Products";
+import React from "react";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
+
+import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import ProtectedRoute from "./components/ProtectedRoute";
+import PublicRoute from "./components/PublicRoute";
+
+import Home from "./pages/Home";
+import Products from "./pages/Products";
+import ProductDetails from "./pages/ProductDetails";
+import Cart from "./pages/Cart";
+import Orders from "./pages/Order";
+import Favourite from "./pages/Favourite";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import ForgotPassword from "./pages/ForgotPassword";
+import Checkout from "./pages/Checkout";
+
+import { CartProvider } from "./context/CartContext";
+import { FavouriteProvider } from "./context/FavouriteContext";
 
 const App = () => {
-  const nav = [
-    { id: 1, name: "Home" , target: "Navbar" },
-    { id: 2, name: "Products", target: "Products" },
-    { id: 3, name: "Orders" , target: "Footer"},
-    { id: 4, name: "Favourite" }
-  ];
-
-  const text = {
-    heading: "Discover Premium Headphones",
-    para: "Experience crystal clear sound with our latest collection. Designed for comfort, built for performance."
-  };
-
-  const shoe_cases = [
-    { id: 1, image: "/images/headphone11.png" },
-    { id: 2, image: "/images/headphone13.png" },
-    { id: 3, image: "/images/headphone22.png" }
-  ];
-
-  const [selectedImage, setSelectedImage] = useState(shoe_cases[0].image);
-
   return (
-    <>
-    <div className="bg-gradient-to-b from-black to-gray-900 text-white min-h-screen">
+    <BrowserRouter>
+      <CartProvider>
+        <FavouriteProvider>
+          <div className="min-h-screen bg-black text-white">
 
-      {/* NAVBAR */}
-      <div className="flex flex-col md:flex-row justify-between items-center px-6 py-4 border-b border-gray-800">
-        
-        <div className="text-xl font-semibold tracking-wide">
-          ⚡ SoundX
-        </div>
+            <Navbar />
 
-        <div className="flex gap-8 mt-10 md:mt-0">
-          {nav.map((item) => (
-            <div
-              key={item.id}
-              className="cursor-pointer relative group"
-            >
-              {item.name}
-              <span className="absolute left-0 bottom-[-5px] w-0 h-[2px] bg-white transition-all group-hover:w-full"></span>
-            </div>
-          ))}
-        </div>
+            <Routes>
 
-      </div>
+              {/* =================================================
+                  PUBLIC HOME
+              ================================================= */}
 
-      {/* BANNER */}
-      <div className="flex flex-col md:flex-row items-center justify-between px-6 md:px-16 py-10 gap-12">
- {/* IMAGE SECTION */}
-        <div className="w-full md:w-[40%] flex justify-center items-center">
+              <Route
+                path="/"
+                element={<Home />}
+              />
 
-  <div className="relative w-full max-w-[450px] aspect-[3/4]">
+              {/* =================================================
+                  AUTH PAGES
+              ================================================= */}
 
-    {/* Glow background */}
-    <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent rounded-2xl blur-2xl"></div>
+              <Route
+                path="/login"
+                element={
+                  <PublicRoute>
+                    <Login />
+                  </PublicRoute>
+                }
+              />
 
-    {/* Image */}
-    <img
-      src={selectedImage}
-      className="relative w-full h-full object-contain rounded-2xl shadow-2xl transition duration-500 hover:scale-105"
-      alt=""
-    />
+              <Route
+                path="/signup"
+                element={
+                  <PublicRoute>
+                    <Signup />
+                  </PublicRoute>
+                }
+              />
 
-  </div>
+              <Route
+                path="/forgot-password"
+                element={
+                  <PublicRoute>
+                    <ForgotPassword />
+                  </PublicRoute>
+                }
+              />
 
-</div>
-        {/* TEXT SECTION */}
-        <div className="w-full md:w-[45%] flex flex-col gap-6">
+              {/* =================================================
+                  PROTECTED PRODUCTS
+              ================================================= */}
 
-          <h1 className="text-4xl md:text-5.5xl font-bold leading-tight">
-            {text.heading}
-          </h1>
+              <Route
+                path="/products"
+                element={
+                  <ProtectedRoute>
+                    <Products />
+                  </ProtectedRoute>
+                }
+              />
 
-          <p className="text-gray-400 text-lg leading-relaxed">
-            {text.para}
-          </p>
+              {/* =================================================
+                  PROTECTED PRODUCT DETAILS
+              ================================================= */}
 
-          <button className="w-fit px-6 py-3 bg-white text-black rounded-full font-medium hover:bg-gray-200 transition shadow-lg">
-            Shop Now
-          </button>
+              <Route
+                path="/product/:id"
+                element={
+                  <ProtectedRoute>
+                    <ProductDetails />
+                  </ProtectedRoute>
+                }
+              />
 
-          {/* THUMBNAILS */}
-          <div className="flex gap-4 mt-6">
-            {shoe_cases.map((item) => (
-              <div
-                key={item.id}
-                onClick={() => setSelectedImage(item.image)}
-                className={`w-[80px] h-[100px] rounded-lg overflow-hidden cursor-pointer border-2 transition ${
-                  selectedImage === item.image
-                    ? "border-white scale-105"
-                    : "border-gray-700 hover:scale-105"
-                }`}
-              >
-                <img
-                  src={item.image}
-                  className="w-full h-full object-cover"
-                  alt=""
-                />
-              </div>
-            ))}
+              {/* =================================================
+                  PROTECTED CART
+              ================================================= */}
+
+              <Route
+                path="/cart"
+                element={
+                  <ProtectedRoute>
+                    <Cart />
+                  </ProtectedRoute>
+                }
+              />
+
+              {/* =================================================
+                  PROTECTED CHECKOUT
+              ================================================= */}
+
+              <Route
+                path="/checkout"
+                element={
+                  <ProtectedRoute>
+                    <Checkout />
+                  </ProtectedRoute>
+                }
+              />
+
+              {/* =================================================
+                  PROTECTED ORDERS
+              ================================================= */}
+
+              <Route
+                path="/orders"
+                element={
+                  <ProtectedRoute>
+                    <Orders />
+                  </ProtectedRoute>
+                }
+              />
+
+              {/* =================================================
+                  PROTECTED FAVOURITES
+              ================================================= */}
+
+              <Route
+                path="/favourite"
+                element={
+                  <ProtectedRoute>
+                    <Favourite />
+                  </ProtectedRoute>
+                }
+              />
+
+              {/* =================================================
+                  404
+              ================================================= */}
+
+              <Route
+                path="*"
+                element={
+                  <div className="min-h-[70vh] flex items-center justify-center">
+                    <div className="text-center">
+                      <h1 className="text-6xl font-bold">
+                        404
+                      </h1>
+
+                      <p className="text-gray-500 mt-4">
+                        Page not found.
+                      </p>
+                    </div>
+                  </div>
+                }
+              />
+
+            </Routes>
+
+            <Footer />
+
           </div>
-
-        </div>
-
-
-      </div>
-
-    </div>
-    {/* <Navbar/> */}
-    <Products/>
-    <Footer/>
-    </>
+        </FavouriteProvider>
+      </CartProvider>
+    </BrowserRouter>
   );
 };
 
