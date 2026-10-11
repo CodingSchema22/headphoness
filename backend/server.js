@@ -71,11 +71,25 @@ dotenv.config();
 
 const app = express();
 
+// app.use(
+//   cors({
+//     origin: process.env.CLIENT_URL || "http://localhost:5173",
+//   })
+// );
+
+
+
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://headphoness-gold.vercel.app",
+];
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:5173",
+    origin: allowedOrigins,
   })
 );
+
 
 app.use(express.json());
 

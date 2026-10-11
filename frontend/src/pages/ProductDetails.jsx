@@ -20,7 +20,8 @@ import ProductCard from "../components/ProductCard";
 import { useCart } from "../context/CartContext";
 import { useFavourite } from "../context/FavouriteContext";
 
-const API_URL = "http://localhost:5000/api/products";
+// const API_URL = "http://localhost:5000/api/products";
+const API_URL = `${import.meta.env.VITE_API_URL}/api/products`;
 
 const ProductDetails = () => {
   const { id } = useParams();
