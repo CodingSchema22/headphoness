@@ -79,9 +79,23 @@ const app = express();
 
 
 
+// const allowedOrigins = [
+//   "http://localhost:5173",
+//   "https://headphoness-gold.vercel.app",
+// ];
+
+// app.use(
+//   cors({
+//     origin: allowedOrigins,
+//   })
+// );
+
+
 const allowedOrigins = [
   "http://localhost:5173",
   "https://headphoness-gold.vercel.app",
+  "https://headphoness-4x27ssk8z-codingschema22s-projects.vercel.app",
+  "https://headphoness-gqjw-iaes9tnaz-codingschema22s-projects.vercel.app",
 ];
 
 app.use(
