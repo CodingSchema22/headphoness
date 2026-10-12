@@ -197,16 +197,29 @@ const Order = () => {
                           className="flex gap-4 items-center"
                         >
                           <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-gray-900 via-gray-950 to-black border border-white/10 flex items-center justify-center flex-shrink-0 overflow-hidden">
-                            <img
-                              src={item.image || "/images/headphone17.png"}
-                              alt={item.name || "Headphones"}
-                              className="w-full h-full object-contain p-2"
-                              onError={(event) => {
-                                event.currentTarget.onerror = null;
-                                event.currentTarget.src =
-                                  "/images/headphone17.png";
-                              }}
-                            />
+          
+<img
+  src={
+    item.image ||
+    item.imageUrl ||
+    item.image_url ||
+    item.product?.image ||
+    "/images/headphone17.png"
+  }
+  alt={item.name || "Headphones"}
+  className="w-full h-full object-contain p-2"
+  onError={(event) => {
+    const img = event.currentTarget;
+
+    if (!img.dataset.fallbackTried) {
+      img.dataset.fallbackTried = "true";
+      img.src = "/images/headphone17.png";
+    } else {
+      img.onerror = null;
+      img.style.visibility = "hidden";
+    }
+  }}
+/>
                           </div>
 
                           <div className="flex-1 min-w-0">
